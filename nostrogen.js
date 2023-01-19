@@ -1,4 +1,6 @@
 // consts
+const prefixRadioEl = document.getElementById("prefixRadio");
+const suffixRadioEl = document.getElementById("suffixRadio");
 const prefixEl = document.getElementById("prefix");
 const progressEl = document.querySelector(".progress-bar");
 const npubEl = document.getElementById("npub");
@@ -8,12 +10,23 @@ const privateEl = document.getElementById("private");
 const timeEl = document.getElementById("time");
 
 // lets
+let isPrefix = prefixRadioEl.checked;
 let found = false;
 let counter = 0;
-let privatekey = window.NostrTools.generatePrivateKey();
-let publickey = window.NostrTools.getPublicKey(privatekey);
-let nsec = window.NostrTools.nip19.nsecEncode(privatekey);
-let npub = window.NostrTools.nip19.npubEncode(publickey);
+let privatekey;
+let publickey;
+let nsec;
+let npub;
+
+prefixRadioEl.onclick = function() {
+  suffixRadioEl.checked = false;
+  isPrefix = true;
+}
+
+suffixRadioEl.onclick = function() {
+  prefixRadioEl.checked = false;
+  isPrefix = false;
+}
 
 // disallow b's, i's, o's, and 1's
 prefixEl.onkeypress = function(e) {
@@ -25,40 +38,28 @@ prefixEl.onkeypress = function(e) {
 // start looking...
 async function generate() {
   progressEl.style="width: 100%";
-  setTimeout(() => {
-    clear();
-    console.log(`Looking for prefix: ${prefixEl.value}`);
-    let start = Date.now();
-    while (!found) {
-      console.log(npub.length)
-      if (counter % 1000 === 0) {
-        console.log(`Generated and parsed ${counter} keys...`);
-      }
-      if (npub.substring(5, 5 + prefixEl.value.length) === prefixEl.value) {
-        found = true;
-        progressEl.style="width: 0%";
-        console.log(`npub: ${npub}`);
-        console.log(`nsec: ${nsec}`);
-        console.log(`Public Key: ${publickey}`);
-        console.log(`Private Key: ${privatekey}`);
-        console.log(`Generated and parsed ${counter} keys...`);
-        npubEl.value = npub;
-        nsecEl.value =  nsec;
-        publicEl.value = publickey;
-        privateEl.value = privatekey;
-      } else {
-        privatekey = window.NostrTools.generatePrivateKey();
-        publickey = window.NostrTools.getPublicKey(privatekey);
-        nsec = window.NostrTools.nip19.nsecEncode(privatekey);
-        npub = window.NostrTools.nip19.npubEncode(publickey);
-        counter++;
-      }
+  clear();
+  console.log(`Looking for prefix: ${prefixEl.value}`);
+  let start = Date.now();
+  while (!found) {
+    if (counter % 1000 === 0) {
+      console.log(`Generated and parsed ${counter} keys...`);
     }
-    let end = Date.now();
-    let time = (end - start) / 1000;
-    timeEl.innerHTML = time;
-    console.log(`Took ${time} sec to compute`);
-  }, 10)
+    if(isMatched(npub, prefixEl.value)) {
+      found = true;
+      finishUp();
+    } else {
+      privatekey = window.NostrTools.generatePrivateKey();
+      publickey = window.NostrTools.getPublicKey(privatekey);
+      nsec = window.NostrTools.nip19.nsecEncode(privatekey);
+      npub = window.NostrTools.nip19.npubEncode(publickey);
+      counter++;
+    }
+  }
+  let end = Date.now();
+  let time = (end - start) / 1000;
+  timeEl.innerHTML = time;
+  console.log(`Took ${time} sec to compute`);
 }
 
 // clear values
@@ -73,6 +74,29 @@ function clear() {
   publickey = window.NostrTools.getPublicKey(privatekey);
   nsec = window.NostrTools.nip19.nsecEncode(privatekey);
   npub = window.NostrTools.nip19.npubEncode(publickey);
+}
+
+function isMatched(npub){
+  console.log(isPrefix)
+  if(isPrefix) {
+    if (npub.substring(5, 5 + prefixEl.value.length) === prefixEl.value) {
+      return true;
+    }
+  } else {
+    if (npub.substring(npub.length - prefixEl.value.length) === prefixEl.value) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function finishUp() {
+  progressEl.style="width: 0%";
+  console.log(`Generated and parsed ${counter} keys...`);
+  npubEl.value = npub;
+  nsecEl.value =  nsec;
+  publicEl.value = publickey;
+  privateEl.value = privatekey;
 }
 
 // copy to clipboard
@@ -101,7 +125,6 @@ function copy(element) {
       privateEl.setSelectionRange(0, 99999);
       navigator.clipboard.writeText(privateEl.value);
       alert('copied!')
-      break;
-              
+      break;       
   }
 }
