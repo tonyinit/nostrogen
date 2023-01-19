@@ -1,5 +1,5 @@
 # nostrogen
 simpl nostr vanity address generator
 
-[nostrogen](nostrogen.com/)
+[nostrogen](https://nostrogen.com/)
 (work in progress)
