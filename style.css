@@ -1,0 +1,46 @@
+body{
+  background-color: #5a3c90;
+  margin: 1.5rem;
+}
+
+.container {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  max-width: 50rem;
+  padding: 2rem 2rem;
+}
+
+.nospace {
+  margin: 1.5rem auto;
+  max-width: 50rem;
+}
+
+h1 {
+  color: #fff;
+  font-size: 3rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+h4 {
+  color: #221736;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0 0 3.5rem 0;
+  text-align: center;
+}
+
+.btn.btn-primary {
+  background-color: #5a3c90;
+  border-color: #5a3c90;
+}
+
+.btn.btn-primary:hover {
+  background-color: #4e357e;
+  border-color: #4e357e;
+}
+
+.btn.btn-primary:active, .btn.btn-primary:focus {
+  background-color: #6544A2;
+  border-color: #6544A2;
+}
