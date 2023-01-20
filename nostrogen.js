@@ -8,15 +8,24 @@ const nsecEl = document.getElementById("nsec");
 const publicEl = document.getElementById("public");
 const privateEl = document.getElementById("private");
 const timeEl = document.getElementById("time");
+let worker;
+
+function startWorker() {
+  worker = new Worker('generator.js');
+  worker.addEventListener('message', (e) => {
+    // handle the received data
+    const { npub, nsec, publickey, privatekey, time, counter } = e.data;
+    stopWorker();
+    finishUp(npub, nsec, publickey, privatekey, time, counter);
+  })
+}
+
+function stopWorker() {
+  worker.terminate();
+}
 
 // lets
 let isPrefix = prefixRadioEl.checked;
-let found = false;
-let counter = 0;
-let privatekey;
-let publickey;
-let nsec;
-let npub;
 
 prefixRadioEl.onclick = function() {
   suffixRadioEl.checked = false;
@@ -38,65 +47,34 @@ prefixEl.onkeypress = function(e) {
 // start looking...
 async function generate() {
   progressEl.style="width: 100%";
+  
   clear();
-  console.log(`Looking for prefix: ${prefixEl.value}`);
-  let start = Date.now();
-  while (!found) {
-    if (counter % 1000 === 0) {
-      console.log(`Generated and parsed ${counter} keys...`);
-    }
-    if(isMatched(npub, prefixEl.value)) {
-      found = true;
-      finishUp();
-    } else {
-      privatekey = window.NostrTools.generatePrivateKey();
-      publickey = window.NostrTools.getPublicKey(privatekey);
-      nsec = window.NostrTools.nip19.nsecEncode(privatekey);
-      npub = window.NostrTools.nip19.npubEncode(publickey);
-      counter++;
-    }
-  }
-  let end = Date.now();
-  let time = (end - start) / 1000;
-  timeEl.innerHTML = time;
-  console.log(`Took ${time} sec to compute`);
+  startWorker();
+
+  // gather the necessary data for the worker
+  const prefix = prefixEl.value;
+  const data = { prefix, isPrefix };
+  
+  // start the worker
+  worker.postMessage(data);
 }
 
 // clear values
 function clear() {
-  counter = 0;
-  found = false;
   npubEl.value = '';
   nsecEl.value =  '';
   publicEl.value = '';
   privateEl.value = '';
-  privatekey = window.NostrTools.generatePrivateKey();
-  publickey = window.NostrTools.getPublicKey(privatekey);
-  nsec = window.NostrTools.nip19.nsecEncode(privatekey);
-  npub = window.NostrTools.nip19.npubEncode(publickey);
 }
 
-function isMatched(npub){
-  console.log(isPrefix)
-  if(isPrefix) {
-    if (npub.substring(5, 5 + prefixEl.value.length) === prefixEl.value) {
-      return true;
-    }
-  } else {
-    if (npub.substring(npub.length - prefixEl.value.length) === prefixEl.value) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function finishUp() {
+function finishUp(npub, nsec, publickey, privatekey, time, counter) {
   progressEl.style="width: 0%";
   console.log(`Generated and parsed ${counter} keys...`);
   npubEl.value = npub;
   nsecEl.value =  nsec;
   publicEl.value = publickey;
   privateEl.value = privatekey;
+  timeEl.innerHTML = time;
 }
 
 // copy to clipboard

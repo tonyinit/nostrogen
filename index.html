@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nostrogen - a simple nostr vanity address generator</title>
-    <script type="text/javascript" src="https://unpkg.com/nostr-tools/lib/nostr.bundle.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -18,24 +17,30 @@
       </div>
     </div>
     <div class="container">
+      
       <div class="form-group">
-        <div class="d-flex justify-content-between">
-          <div class="d-flex">
-            <div class="form-check mx-3 px-2">
-              <input class="form-check-input" type="radio" name="prefixRadio" id="prefixRadio" checked>
-              <label class="form-check-label" for="prefixRadio">
-                Prefix
-              </label>
-            </div>
-            <div class="form-check pb-3">
-              <input class="form-check-input" type="radio" name="suffixRadio" id="suffixRadio">
-              <label class="form-check-label" for="suffixRadio">
-                Suffix
-              </label>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="d-flex justify-content-sm-center justify-content-md-start pb-3">characters not allowed: b, i, o, 1</div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="d-flex justify-content-sm-center justify-content-md-space-between">
+              <div class="form-check mx-3 px-2">
+                <input class="form-check-input" type="radio" name="prefixRadio" id="prefixRadio" checked>
+                <label class="form-check-label" for="prefixRadio">
+                  Prefix
+                </label>
+              </div>
+              <div class="form-check pb-3">
+                <input class="form-check-input" type="radio" name="suffixRadio" id="suffixRadio">
+                <label class="form-check-label" for="suffixRadio">
+                  Suffix
+                </label>
+              </div>
             </div>
           </div>
-          <div class="d-flex justify-content-end pb-3">characters not allowed: b, i, o, 1</div>
         </div>
+
         <div class="input-group shadow">
           <input type="text" class="form-control form-control-lg" placeholder="prefix" id="prefix" data-inputmask-mask="[9-]AAA-999">
           <button class="browse btn btn-primary" type="button" onclick="generate()">generate</button>
@@ -52,28 +57,28 @@
               <input type="text" class="form-control" name="code1" placeholder="npub" id="npub">
               <label for="code1">npub</label>
           </div>
-          <button class="browse btn btn-primary" type="button" onclick="copy('npub')">🤙</button>
+          <button class="browse btn btn-primary" type="button" title="copy" onclick="copy('npub')">🤙</button>
         </div>
         <div class="input-group shadow mb-3">
           <div class="form-floating flex-grow-1">
               <input type="text" class="form-control" name="code1" placeholder="nsec" id="nsec">
               <label>nsec</label>
           </div>
-          <button class="browse btn btn-primary" type="button" onclick="copy('nsec')">🤙</button>
+          <button class="browse btn btn-primary" type="button" title="copy" onclick="copy('nsec')">🤙</button>
         </div>
         <div class="input-group shadow mb-3">
           <div class="form-floating flex-grow-1">
               <input type="text" class="form-control" name="code1" placeholder="public key" id="public">
               <label>public key</label>
           </div>
-          <button class="browse btn btn-primary" type="button" onclick="copy('public')">🤙</button>
+          <button class="browse btn btn-primary" type="button" title="copy" onclick="copy('public')">🤙</button>
         </div>
         <div class="input-group shadow mb-3">
           <div class="form-floating flex-grow-1">
               <input type="text" class="form-control" name="code1" placeholder="private key" id="private">
               <label>private key</label>
           </div>
-          <button class="browse btn btn-primary" type="button" onclick="copy('private')">🤙</button>
+          <button class="browse btn btn-primary" type="button" title="copy" onclick="copy('private')">🤙</button>
         </div>
         <div class="d-flex justify-content-end">
           took&nbsp;<span id="time">0</span>&nbsp;seconds to compute
