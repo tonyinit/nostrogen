@@ -23,7 +23,7 @@ h1 {
 }
 
 h4 {
-  color: #221736;
+  color: #000;
   font-size: 1.5rem;
   font-weight: 400;
   margin: 0 0 3.5rem 0;
@@ -43,4 +43,14 @@ h4 {
 .btn.btn-primary:active, .btn.btn-primary:focus {
   background-color: #6544A2;
   border-color: #6544A2;
+}
+
+.donate-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.donate-link:hover {
+  color: #ff9900;
+  text-decoration: none;
 }

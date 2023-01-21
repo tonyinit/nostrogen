@@ -29,11 +29,13 @@ let isPrefix = prefixRadioEl.checked;
 
 prefixRadioEl.onclick = function() {
   suffixRadioEl.checked = false;
+  prefixEl.placeholder = 'prefix';
   isPrefix = true;
 }
 
 suffixRadioEl.onclick = function() {
   prefixRadioEl.checked = false;
+  prefixEl.placeholder = 'suffix';
   isPrefix = false;
 }
 

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nostrogen - a simple nostr vanity address generator</title>
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -21,10 +23,10 @@
       <div class="form-group">
         <div class="row">
           <div class="col-12 col-md-6">
-            <div class="d-flex justify-content-sm-center justify-content-md-start pb-3">characters not allowed: b, i, o, 1</div>
+            <div class="d-flex justify-content-center justify-content-md-start pb-3">characters not allowed: b, i, o, 1</div>
           </div>
           <div class="col-12 col-md-6">
-            <div class="d-flex justify-content-sm-center justify-content-md-space-between">
+            <div class="d-flex justify-content-center justify-content-md-end">
               <div class="form-check mx-3 px-2">
                 <input class="form-check-input" type="radio" name="prefixRadio" id="prefixRadio" checked>
                 <label class="form-check-label" for="prefixRadio">
@@ -48,7 +50,7 @@
       </div>
     </div>
     <div class="container mt-4">
-      <div class="pb-3">
+      <div class="pb-3 d-flex justify-content-center justify-content-md-start">
         your keys will be generated below:
       </div>
       <div class="form-group">
@@ -84,6 +86,31 @@
           took&nbsp;<span id="time">0</span>&nbsp;seconds to compute
         </div>
       </div>
+    </div>
+    <div class="container mt-4 text-center">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">open source & completely free</h5>
+              <p class="card-text">the nostrogen codebase has been made open source and completely free to facilitate collaboration and guarantee a more robust and secure final outcome</p>
+              <a href="https://github.com/tonyinit/nostrogen" class="btn btn-primary">view on github</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">safe, single-page application</h5>
+              <p class="card-text">this single-page application only generates addresses locally on your computer, but feel free to download the source and run the app offline</p>
+              <a href="#" class="btn btn-primary">read the faq</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center mt-4">
+      <a href="https://getalby.com/p/hitony" class="donate-link" target="_blank">⚡️hitony@getalby.com</a>
     </div>
     <script src="nostrogen.js"></script>
   </body>
