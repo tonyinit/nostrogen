@@ -54,3 +54,24 @@ h4 {
   color: #ff9900;
   text-decoration: none;
 }
+
+.no-decoration {
+  text-decoration: none;
+  color: inherit;
+  cursor: default;
+}
+
+.no-decoration:hover {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.tiny-text {
+  font-size: 14px;
+}
+
+.bold-purple {
+  color: #5a3c90;
+  font-weight: 600;
+}
