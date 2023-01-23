@@ -1,5 +1,5 @@
 # nostrogen
-simpl nostr vanity address generator
+simple nostr vanity address generator
 
 [nostrogen.com](http://nostrogen.com/)
 
