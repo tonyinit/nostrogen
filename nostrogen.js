@@ -21,7 +21,7 @@ function startWorker() {
     if(e.data.counter) {
       counterEl.innerHTML = e.data.counter;
     }
-    else if(e.data.npub) {
+    if(e.data.npub) {
       const { npub, nsec, publickey, privatekey, time } = e.data;
       stopWorker();
       finishUp(npub, nsec, publickey, privatekey, time);
