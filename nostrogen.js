@@ -8,24 +8,30 @@ const nsecEl = document.getElementById("nsec");
 const publicEl = document.getElementById("public");
 const privateEl = document.getElementById("private");
 const timeEl = document.getElementById("time");
+const counterEl = document.getElementById("counter");
+
+// lets
 let worker;
+let isPrefix = prefixRadioEl.checked;
 
 function startWorker() {
   worker = new Worker('generator.js');
   worker.addEventListener('message', (e) => {
     // handle the received data
-    const { npub, nsec, publickey, privatekey, time, counter } = e.data;
-    stopWorker();
-    finishUp(npub, nsec, publickey, privatekey, time, counter);
+    if(e.data.counter) {
+      counterEl.innerHTML = e.data.counter;
+    }
+    else if(e.data.npub) {
+      const { npub, nsec, publickey, privatekey, time } = e.data;
+      stopWorker();
+      finishUp(npub, nsec, publickey, privatekey, time);
+    }
   })
 }
 
 function stopWorker() {
   worker.terminate();
 }
-
-// lets
-let isPrefix = prefixRadioEl.checked;
 
 prefixRadioEl.onclick = function() {
   suffixRadioEl.checked = false;
@@ -67,11 +73,11 @@ function clear() {
   nsecEl.value =  '';
   publicEl.value = '';
   privateEl.value = '';
+  timeEl.innerHTML = '0';
 }
 
-function finishUp(npub, nsec, publickey, privatekey, time, counter) {
+function finishUp(npub, nsec, publickey, privatekey, time) {
   progressEl.style="width: 0%";
-  console.log(`Generated and parsed ${counter} keys...`);
   npubEl.value = npub;
   nsecEl.value =  nsec;
   publicEl.value = publickey;

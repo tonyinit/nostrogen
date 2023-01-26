@@ -14,7 +14,9 @@ onmessage = (e) => {
     start = Date.now();
     while(!found) {
       counter++;
-
+      // update counter UI
+      postMessage({counter: counter});
+      
       // generate the keys
       privatekey = NostrTools.generatePrivateKey();
       publickey = NostrTools.getPublicKey(privatekey);
@@ -26,7 +28,7 @@ onmessage = (e) => {
         let end = Date.now();
         let time = (end - start) / 1000;
         // send the keys back to the main thread
-        postMessage({ npub, nsec, publickey, privatekey, time, counter });
+        postMessage({ npub, nsec, publickey, privatekey, time });
       }
     }
     
