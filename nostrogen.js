@@ -52,6 +52,12 @@ prefixEl.onkeypress = function(e) {
       return false;
 };
 
+// input npub to decode public key
+npubEl.addEventListener('input', (e) => {
+  const { data } = NostrTools.nip19.decode(npubEl.value);
+  publicEl.value = data;
+})
+
 // start looking...
 async function generate() {
   progressEl.style="width: 100%";
