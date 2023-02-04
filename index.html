@@ -34,10 +34,16 @@
                   Prefix
                 </label>
               </div>
-              <div class="form-check pb-3">
+              <div class="form-check pb-3 px-3">
                 <input class="form-check-input" type="radio" name="suffixRadio" id="suffixRadio">
                 <label class="form-check-label" for="suffixRadio">
                   Suffix
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="wordsOfInterestCheck">
+                <label class="form-check-label" for="wordsOfInterestCheck">
+                  words of interest
                 </label>
               </div>
             </div>
@@ -90,6 +96,24 @@
           <div>
             took&nbsp;<span id="time">0</span>&nbsp;seconds to compute
           </div>
+        </div>
+      </div>
+    </div>
+    <div id="wordsOfInterestContainer" class="container mt-4" style="display:none">
+      these keys may be of interest to you:
+      <div class="row">
+        <div class="col-sm-12 table-responsive small">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">word</th>
+                <th scope="col">npub</th>
+                <th scope="col">private key</th>
+              </tr>
+            </thead>
+            <tbody id="tableOfInterest">
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
