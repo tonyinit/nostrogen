@@ -30,9 +30,10 @@ onmessage = async (e) => {
     postMessage({counter: counter});
     
     // generate the keys
-    privatekey = NostrTools.generatePrivateKey();
-    publickey = NostrTools.getPublicKey(privatekey);
-    nsec = NostrTools.nip19.nsecEncode(privatekey);
+    uInt8Arr = NostrTools.generateSecretKey();
+    privatekey = Array.from(uInt8Arr, i => i.toString(16).padStart(2, "0")).join("");
+    publickey = NostrTools.getPublicKey(uInt8Arr);
+    nsec = NostrTools.nip19.nsecEncode(uInt8Arr);
     npub = NostrTools.nip19.npubEncode(publickey);
 
     if(isMatched(prefix, npub, isPrefix)) {
